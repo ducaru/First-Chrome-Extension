@@ -1,9 +1,25 @@
 
-alert (" Message from your extension: I am running ! :-) ");
+console.log(" Message from your extension: I am running ! :-) ");
 
-var images = document.getElementsByTagName('img');
+function changeImagesSources(newImageSource){  
+      var images = document.getElementsByTagName('img'); 
+      for (image of images)
+      {
+            image.src = newImageSource; 
+      }
+}
 
-for (image of images)
-{
-      image.src="http://images6.fanpop.com/image/photos/41500000/Kitten-cats-and-kittens-club-41536652-1000-667.jpg"; 
+chrome.runtime.onMessage.addListener(gotMessage);
+
+function gotMessage(message, sender, sendResponse) {
+      switch (message.txt){      
+            case "Puppies" : {
+                  changeImagesSources("https://s3-media3.fl.yelpcdn.com/bphoto/cuTupHwAHzW1n5u-dehylQ/ls.jpg");
+                  break;
+            }
+            case "Kittens" : {
+                  changeImagesSources("https://www.eastcottvets.co.uk/uploads/Animals/gingerkitten.jpg");
+                  break;
+            }
+      }
 }
